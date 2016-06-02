@@ -1,12 +1,20 @@
-import { default as React } from 'react'
-import { createRenderer } from 'react-addons-test-utils'
-import { expect } from 'chai'
+import test from 'ava'
+import expect from 'expect'
+import { mount } from 'enzyme'
+import React from 'react'
 import Chart from './Chart'
 
-describe('Chart', () => {
-  it('renders a div', () => {
-    const renderer = createRenderer()
-    renderer.render(<Chart />)
-    expect(renderer.getRenderOutput().type).to.equal('div')
-  })
+test(() => {
+  const wrapper = mount(
+    <Chart config={{
+      data: {
+        columns: [
+          ['data1', 30, 200, 100, 400, 150, 250],
+          ['data2', 50, 20, 10, 40, 15, 25]
+        ]
+      }
+    }} />
+  )
+
+  expect(wrapper.find('div')).toExist()
 })
